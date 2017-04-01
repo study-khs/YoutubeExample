@@ -10,9 +10,8 @@ import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
 
-import static android.content.ContentValues.TAG;
-
 public class MainActivity extends YouTubeBaseActivity {
+    private final String TAG = "JYP/"+getClass().getSimpleName();
     YouTubePlayerView youTubePlayerView;
     YouTubePlayer.OnInitializedListener onInitializedListener;
 
@@ -25,6 +24,7 @@ public class MainActivity extends YouTubeBaseActivity {
         onInitializedListener = new YouTubePlayer.OnInitializedListener() {
             @Override
             public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
+                Log.d(TAG, "onInitializationSuccess: ");
                 youTubePlayer.loadVideo("lgJOYdYBTnM");
             }
 
