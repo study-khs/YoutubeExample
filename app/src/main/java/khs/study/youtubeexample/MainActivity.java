@@ -9,11 +9,20 @@ import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
+import com.google.api.services.youtube.YouTube;
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+import java.util.concurrent.ThreadFactory;
 
 public class MainActivity extends YouTubeBaseActivity {
     private final String TAG = "JYP/"+getClass().getSimpleName();
     YouTubePlayerView youTubePlayerView;
     YouTubePlayer.OnInitializedListener onInitializedListener;
+
+    YouTube youtube;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +34,7 @@ public class MainActivity extends YouTubeBaseActivity {
             @Override
             public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
                 Log.d(TAG, "onInitializationSuccess: ");
-                youTubePlayer.loadVideo("lgJOYdYBTnM");
+                youTubePlayer.loadVideo("ar88lOiwz58");
             }
 
             @Override
@@ -40,8 +49,15 @@ public class MainActivity extends YouTubeBaseActivity {
                 youTubePlayerView.initialize("AIzaSyBnSJPhyFwzMbOxaccpK7jYeZNXmyEgtu0", onInitializedListener);
             }
         });
+
+        searchThread.start();
+
     }
 
-    //
-
+    Thread searchThread = new Thread(new Runnable() {
+        @Override
+        public void run() {
+            Search.search("성시경");
+        }
+    });
 }
